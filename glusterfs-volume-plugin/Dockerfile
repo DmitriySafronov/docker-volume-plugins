@@ -1,6 +1,7 @@
 FROM debian:stable-backports
 RUN apt-get update && apt-get install -y \
-    glusterfs-client \
+    glusterfs-server \
+    fuse \
     curl \
     git \
     attr \
