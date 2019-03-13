@@ -1,11 +1,19 @@
-FROM centos:7
-RUN yum install -q -y centos-release-gluster312 && \
-  yum install -q -y go git glusterfs glusterfs-fuse attr
-RUN go get github.com/trajano/docker-volume-plugins/glusterfs-volume-plugin && \
-  mv $HOME/go/bin/glusterfs-volume-plugin / && \
-  rm -rf $HOME/go && \
-  yum remove -q -y go git gcc && \
-  yum autoremove -q -y && \
-  yum clean all && \
-  rm -rf /var/cache/yum /var/log/anaconda /var/cache/yum /etc/mtab && \
-  rm /var/log/lastlog /var/log/tallylog
+FROM debian:stable-backports
+RUN apt-get update && apt-get install -y \
+    glusterfs-client \
+    curl \
+    git \
+    attr \
+    golang-1.11 && \
+    PATH=$PATH:/usr/lib/go-1.11/bin && \
+    go get github.com/trajano/docker-volume-plugins/glusterfs-volume-plugin && \
+    mv $HOME/go/bin/glusterfs-volume-plugin / && \
+    apt-get remove -q -y \
+    git \
+    gcc \
+    curl \
+    golang-1.11 && \
+    apt-get autoremove -q -y && \
+    rm -rf $HOME/go /var/lib/apt/lists/* /etc/mtab /var/log/lastlog /var/log/tallylog && \
+    apt-get clean all
+
