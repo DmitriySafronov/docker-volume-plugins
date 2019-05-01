@@ -1,13 +1,13 @@
-FROM debian:stable-backports
+FROM ubuntu:latest
 RUN apt-get update && apt-get install -y \
     glusterfs-server \
     fuse \
     curl \
     git \
     attr \
-    golang-1.11 && \
-    PATH=$PATH:/usr/lib/go-1.11/bin && \
-    go get github.com/scrunter/docker-volume-plugins/glusterfs-volume-plugin && \
+    golang && \
+    PATH=$PATH:/usr/lib/go/bin && \
+    go get github.com/DmitriySafronov/docker-volume-plugins/glusterfs-volume-plugin && \
     mv $HOME/go/bin/glusterfs-volume-plugin / && \
     apt-get remove -q -y \
     git \
