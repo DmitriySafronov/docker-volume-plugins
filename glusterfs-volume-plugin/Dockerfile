@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     git \
     gcc \
     curl \
-    golang-1.11 && \
+    golang && \
     apt-get autoremove -q -y && \
     rm -rf $HOME/go /var/lib/apt/lists/* /etc/mtab /var/log/lastlog /var/log/tallylog && \
     apt-get clean all
