@@ -1,5 +1,5 @@
 #!/bin/sh -e
-TAG=$1
+
 build() {
     docker plugin rm -f zimniy/$1 || true
     docker rmi -f rootfsimage || true
@@ -10,15 +10,14 @@ build() {
     docker export "$id" | tar -x -C build/rootfs
     docker rm -vf "$id"
     cp $1/config.json build
-    if [ -z "$TAG" ]
+
+    if [ -z "$2" ]
     then
         docker plugin create zimniy/$1 build
     else
-        docker plugin create zimniy/$1:$TAG build
-        docker plugin push zimniy/$1:$TAG
+        docker plugin create zimniy/$1:$2 build
+        docker plugin push zimniy/$1:$2
     fi
 }
+
 build glusterfs-volume-plugin
-#build cifs-volume-plugin
-#build nfs-volume-plugin
-#build centos-mounted-volume-plugin
