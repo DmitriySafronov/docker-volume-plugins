@@ -6,3 +6,5 @@ This project provides managed volume plugin for Docker to connect to [GlusterFS]
 **There is no robust error handling.  So garbage in -> garbage out**
 
 This repo is for adapting plugin to Ubuntu packages instead of CentOS ones.
+
+**Original author: [trajano](https://github.com/trajano/docker-volume-plugins)**
